@@ -24,7 +24,7 @@ lower_limit = 1
 base_dir = '/Users/kwinter/Documents/workspaces/pi/data/'
 
 logfile_name = 'logfile' + str(strftime( "%Y%m%d%H%M%S", time.time()) + '.csv'
-print "Creating logfile {0}".format(logfile_name)
+print "Creating logfile" + logfile_name
 
 def setup():
     os.system('gpio -g mode 17 out')
