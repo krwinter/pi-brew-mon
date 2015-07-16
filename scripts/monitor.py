@@ -23,8 +23,8 @@ lower_limit = 1
 #base_dir = '/sys/bus/w1/devices/'
 base_dir = '/Users/kwinter/Documents/workspaces/pi/data/'
 
-logfile_name = 'logfile' + str(time.time()) + '.csv'
-
+logfile_name = 'logfile' + str(strftime( "%Y%m%d%H%M%S", time.time()) + '.csv'
+print "Creating logfile {0}".format(logfile_name)
 
 def setup():
     os.system('gpio -g mode 17 out')
@@ -34,11 +34,11 @@ def setup():
             header = 'timestamp,t1,t2,t3,relay_state' + '\n'
             logfile.write(header)
 
-def read_temp_raw(device_file):
-    f = open(device_file, 'r')
-    lines = f.readlines()
-    f.close()
-    return lines
+# def read_temp_raw(device_file):
+#     f = open(device_file, 'r')
+#     lines = f.readlines()
+#     f.close()
+#     return lines
 
 def read_temp_raw(device_file):
     f = open(device_file, 'r')
