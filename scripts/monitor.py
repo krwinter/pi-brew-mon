@@ -20,19 +20,19 @@ target_temp = 20
 upper_limit = 1
 lower_limit = 1
 
-#base_dir = '/sys/bus/w1/devices/'
-base_dir = '/Users/kwinter/Documents/workspaces/pi/data/'
+device_dir = '/sys/bus/w1/devices/'
+data_dir = '/home/ken/pi-brew-mon/scripts/data/' # not yet used
 
-logfile_name = 'logfile' + str(strftime( "%Y%m%d%H%M%S", time.time()) + '.csv'
-print "Creating logfile" + logfile_name
+datafile_name = 'data/datafile' + str(strftime( "%Y%m%d%H%M%S", time.time())) + '.csv'
+print "Creating datafile" + datafile_name
 
 def setup():
     os.system('gpio -g mode 17 out')
     os.system('gpio -g mode 22 out')
 
-    with open(logfile_name, 'a') as logfile:
+    with open(datafile_name, 'a') as datafile:
             header = 'timestamp,t1,t2,t3,relay_state' + '\n'
-            logfile.write(header)
+            datafile.write(header)
 
 # def read_temp_raw(device_file):
 #     f = open(device_file, 'r')
@@ -66,7 +66,7 @@ def get_temps():
 
     for f in range(3):
         # we should have 3 - which is which???
-        device_folder = glob.glob(base_dir + '28*')[f]
+        device_folder = glob.glob(device_dir + '28*')[f]
         device_file = device_folder + '/w1_slave'
 
         all_temps.append(read_temp(device_file))
@@ -106,7 +106,7 @@ def main():
 
     while True:
         print "Looping...."
-        with open(logfile_name, 'a') as logfile:
+        with open(datafile_name, 'a') as datafile:
 
             temps = get_temps()
 
@@ -116,7 +116,7 @@ def main():
 
             row = generate_row(temps, relay_state)
 
-            logfile.write(row + '\n')
+            datafile.write(row + '\n')
 
         time.sleep(5)
 
