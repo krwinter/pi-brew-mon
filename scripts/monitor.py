@@ -23,7 +23,7 @@ lower_limit = 1
 device_dir = '/sys/bus/w1/devices/'
 data_dir = '/home/ken/pi-brew-mon/scripts/data/' # not yet used
 
-datafile_name = 'data/datafile' + str(strftime( "%Y%m%d%H%M%S", time.time())) + '.csv'
+datafile_name = 'data/datafile' + str(time.strftime( "%Y%m%d_%H%M%S", time.localtime())) + '.csv'
 print "Creating datafile" + datafile_name
 
 def setup():
@@ -34,11 +34,6 @@ def setup():
             header = 'timestamp,t1,t2,t3,relay_state' + '\n'
             datafile.write(header)
 
-# def read_temp_raw(device_file):
-#     f = open(device_file, 'r')
-#     lines = f.readlines()
-#     f.close()
-#     return lines
 
 def read_temp_raw(device_file):
     f = open(device_file, 'r')
@@ -56,7 +51,7 @@ def read_temp(device_file):
         temp_string = lines[1][equals_pos+2:]
         temp_c = round(float(temp_string) / 1000.0, 2)
         temp_f = round(temp_c * 9.0 / 5.0 + 32.0, 2)
-        return temp_f
+        return temp_c
 
 
 
@@ -69,7 +64,11 @@ def get_temps():
         device_folder = glob.glob(device_dir + '28*')[f]
         device_file = device_folder + '/w1_slave'
 
-        all_temps.append(read_temp(device_file))
+        temp = read_temp(device_file)
+
+        print "Temp for {0} is {1}".format(device_file, temp)
+
+        all_temps.append(temp)
 
     return all_temps
 
@@ -82,7 +81,8 @@ def generate_row(temps,relay_state):
     return row
 
 def get_relay_state():
-    return 1;
+    relay_state = os.system('gpio -g read 17')
+    return relay_state;
 
 def check_if_switch_relays(temp):
     if temp >= target_temp + upper_limit:
@@ -93,10 +93,12 @@ def check_if_switch_relays(temp):
 
 
 def relay_on():
+    print "** Turning relay on **"
     os.system('gpio -g write 17 1')
 
 
 def relay_off():
+    print "** Turning relay off **"
     os.system('gpio -g write 17 0')
 
 
@@ -104,13 +106,14 @@ def main():
 
     setup()
 
+    print "Looping...."
+
     while True:
-        print "Looping...."
         with open(datafile_name, 'a') as datafile:
 
             temps = get_temps()
 
-            check_if_switch_relays(temps[0])
+            check_if_switch_relays(temps[1])
 
             relay_state = get_relay_state()
 
