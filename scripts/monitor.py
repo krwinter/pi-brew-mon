@@ -16,9 +16,10 @@ import time
 # write to file
 
 
-target_temp = 20
+target_temp = 22
 upper_limit = 1
 lower_limit = 1
+
 
 device_dir = '/sys/bus/w1/devices/'
 data_dir = '/home/ken/pi-brew-mon/scripts/data/' # not yet used
@@ -58,7 +59,6 @@ def read_temp(device_file):
 def get_temps():
 
     all_temps = []
-
     for f in range(3):
         # we should have 3 - which is which???
         device_folder = glob.glob(device_dir + '28*')[f]
@@ -81,8 +81,11 @@ def generate_row(temps,relay_state):
     return row
 
 def get_relay_state():
-    relay_state = os.system('gpio -g read 17')
-    return relay_state;
+    measured_relay_state = os.system('gpio -g read 17')
+    if measured_relay_state != set_relay_state:
+        set_relay_state = measured_relay_state
+        print "*** Changing relay to {0} ***".format(relay_state)
+    return measured_relay_state;
 
 def check_if_switch_relays(temp):
     if temp >= target_temp + upper_limit:
