@@ -20,6 +20,8 @@ target_temp = 22
 upper_limit = 1
 lower_limit = 1
 
+set_relay_state = 0
+
 
 device_dir = '/sys/bus/w1/devices/'
 data_dir = '/home/ken/pi-brew-mon/scripts/data/' # not yet used
