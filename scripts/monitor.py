@@ -83,6 +83,7 @@ def generate_row(temps,relay_state):
     return row
 
 def get_relay_state():
+    global set_relay_state
     measured_relay_state = os.system('gpio -g read 17')
     if measured_relay_state != set_relay_state:
         set_relay_state = measured_relay_state
