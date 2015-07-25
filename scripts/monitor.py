@@ -96,7 +96,7 @@ def check_if_switch_relay(temp):
     if set_relay_state != desired_relay_state:
         set_relay_state = desired_relay_state
         set_relay(set_relay_state)
-        print "*** Changing relay to {0} ***".format(relay_state)
+        print "*** Changing relay to {0} ***".format(set_relay_state)
 
 def set_relay(relay_state):
     cmd = 'gpio -g write 17 ' + str(relay_state)
