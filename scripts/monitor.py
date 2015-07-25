@@ -83,29 +83,34 @@ def generate_row(temps,relay_state):
     return row
 
 def get_relay_state():
-    global set_relay_state
-    measured_relay_state = os.system('gpio -g read 17')
-    if measured_relay_state != set_relay_state:
-        set_relay_state = measured_relay_state
-        print "*** Changing relay to {0} ***".format(relay_state)
-    return measured_relay_state;
+    return os.system('gpio -g read 17');
 
-def check_if_switch_relays(temp):
+def check_if_switch_relay(temp):
     if temp >= target_temp + upper_limit:
-            relay_off()
+        desired_relay_state = 0
 
     if temp <= target_temp - lower_limit:
-            relay_on()
+        desired_relay_state = 1
+
+    global set_relay_state
+    if set_relay_state != desired_relay_state:
+        set_relay_state = desired_relay_state
+        set_relay(set_relay_state)
+        print "*** Changing relay to {0} ***".format(relay_state)
+
+def set_relay(relay_state):
+    cmd = 'gpio -g write 17 ' + relay_state
+    print "--running command: " + cmd
+    os.system(cmd)
+
+# def relay_on():
+#     print "** Turning relay on **"
+#     os.system('gpio -g write 17 1')
 
 
-def relay_on():
-    print "** Turning relay on **"
-    os.system('gpio -g write 17 1')
-
-
-def relay_off():
-    print "** Turning relay off **"
-    os.system('gpio -g write 17 0')
+# def relay_off():
+#     print "** Turning relay off **"
+#     os.system('gpio -g write 17 0')
 
 
 def main():
@@ -119,7 +124,7 @@ def main():
 
             temps = get_temps()
 
-            check_if_switch_relays(temps[1])
+            check_if_switch_relay(temps[1])
 
             relay_state = get_relay_state()
 
