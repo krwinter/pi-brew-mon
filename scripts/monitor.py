@@ -86,7 +86,7 @@ def get_relay_state():
     return os.system('gpio -g read 17');
 
 def check_if_switch_relay(temp):
-    desired_relay_state
+    desired_relay_state = 0
 
     if temp >= target_temp + upper_limit:
         desired_relay_state = 0
