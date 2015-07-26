@@ -112,7 +112,7 @@ def check_if_switch_relay(set_temp, read_temp):
 
 def set_relay(relay_state):
     GPIO.output(gpio_pin, relay_state)
-    print " --SET RELAY-- Setting GPIO to state {0}".relay_state
+    print " --SET RELAY-- Setting GPIO to state {0}".format(relay_state)
 
     #cmd = 'gpio -g write 17 ' + str(relay_state)
     #print "--running command: " + cmd
