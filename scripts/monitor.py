@@ -1,4 +1,4 @@
-#temp controller# temp controller
+#temp controller
 import os
 import glob
 import time
@@ -94,13 +94,13 @@ def get_relay_state():
     return GPIO.input(gpio_pin)
 
 
-def check_if_switch_relay(temp):
+def check_if_switch_relay(set_temp, read_temp):
     desired_relay_state = 0
 
-    if temp >= target_temp + upper_limit:
+    if read_temp >= set_temp + upper_limit:
         desired_relay_state = 0
 
-    if temp <= target_temp - lower_limit:
+    if read_temp <= set_temp - lower_limit:
         desired_relay_state = 1
 
     global set_relay_state
@@ -108,6 +108,7 @@ def check_if_switch_relay(temp):
         set_relay_state = desired_relay_state
         set_relay(set_relay_state)
         print "*** Changing relay to {0} ***".format(set_relay_state)
+
 
 def set_relay(relay_state):
     GPIO.output(gpio_pin, relay_state)
@@ -133,7 +134,7 @@ def main():
             #set_temp = get_set_temp()
             set_temp = 1000
 
-            check_if_switch_relay(read_temps[1], set_temp)
+            check_if_switch_relay(set_temp, read_temps[1])
 
             relay_state = get_relay_state()
 
