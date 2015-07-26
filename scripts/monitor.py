@@ -23,7 +23,7 @@ upper_limit = 1
 lower_limit = 1
 
 set_relay_state = 0
-set_target_temp - 0
+set_target_temp = 0
 
 gpio_pin = 17
 
