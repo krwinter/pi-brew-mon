@@ -23,12 +23,14 @@ upper_limit = 1
 lower_limit = 1
 
 set_relay_state = 0
+set_target_temp - 0
 
 gpio_pin = 17
 
 
 device_dir = '/sys/bus/w1/devices/'
-data_dir = '/home/ken/pi-brew-mon/scripts/data/' # not yet used
+data_dir = '/home/ken/pi-brew-mon/scripts/data/'  #TODO - make relative
+target_temp_file = '/home/ken/pi-brew-mon/scripts/config/target_temp.txt'
 
 datafile_name = 'data/datafile' + str(time.strftime( "%Y%m%d_%H%M%S", time.localtime())) + '.csv'
 print "Creating datafile" + datafile_name
@@ -45,11 +47,26 @@ def setup():
             datafile.write(header)
 
 
+def get_set_temp():
+    # for now just a number in a file
+    f = open(target_temp_file, 'r')
+    read_temp = f.readlines()
+    f.close()
+
+    if set_target_temp != read_temp:
+        print "-! Target Temp changed to {0}".format(read_temp)
+
+    set_target_temp = read_temp
+
+    return read_temp
+
+
 def read_temp_raw(device_file):
     f = open(device_file, 'r')
     lines = f.readlines()
     f.close()
     return lines
+
 
 def read_temp(device_file):
     lines = read_temp_raw(device_file)
@@ -79,6 +96,7 @@ def get_temps():
 
         all_temps.append(temp)
 
+    print "---"
     return all_temps
 
 
@@ -107,7 +125,7 @@ def check_if_switch_relay(set_temp, read_temp):
     if set_relay_state != desired_relay_state:
         set_relay_state = desired_relay_state
         set_relay(set_relay_state)
-        print "*** Changing relay to {0} ***".format(set_relay_state)
+        print "*** Change relay to {0} ***".format(set_relay_state)
 
 
 def set_relay(relay_state):
@@ -131,8 +149,7 @@ def main():
 
             read_temps = get_temps()
 
-            #set_temp = get_set_temp()
-            set_temp = 1000
+            set_temp = get_set_temp()
 
             check_if_switch_relay(set_temp, read_temps[1])
 
