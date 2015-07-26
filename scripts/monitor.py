@@ -133,7 +133,7 @@ def main():
             #set_temp = get_set_temp()
             set_temp = 1000
 
-            check_if_switch_relay(temps[1], set_temp)
+            check_if_switch_relay(read_temps[1], set_temp)
 
             relay_state = get_relay_state()
 
