@@ -53,6 +53,9 @@ def get_set_temp():
     read_temp = f.readlines()
     f.close()
 
+    # convert
+    read_temp = int(read_temp[0])
+
     global set_target_temp
     if set_target_temp != read_temp:
         print "-! Target Temp changed to {0}".format(read_temp)
