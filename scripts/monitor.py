@@ -3,6 +3,8 @@ import os
 import glob
 import time
 
+import RPi.GPIO as GPIO
+
 
 # --- set up / init - modprobe, gpio settings, etc
 
@@ -22,6 +24,8 @@ lower_limit = 1
 
 set_relay_state = 0
 
+gpio_pin = 17
+
 
 device_dir = '/sys/bus/w1/devices/'
 data_dir = '/home/ken/pi-brew-mon/scripts/data/' # not yet used
@@ -30,11 +34,14 @@ datafile_name = 'data/datafile' + str(time.strftime( "%Y%m%d_%H%M%S", time.local
 print "Creating datafile" + datafile_name
 
 def setup():
-    os.system('gpio -g mode 17 out')
-    os.system('gpio -g mode 22 out')
+    #os.system('gpio -g mode 17 out')
+    #os.system('gpio -g mode 22 out')
+
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(gpio_pin, GPIO.OUT)
 
     with open(datafile_name, 'a') as datafile:
-            header = 'timestamp,t1,t2,t3,relay_state' + '\n'
+            header = 'timestamp,set_temp,t1,t2,t3,relay_state' + '\n'
             datafile.write(header)
 
 
@@ -76,14 +83,16 @@ def get_temps():
 
 
 
-def generate_row(temps,relay_state):
+def generate_row(set_temp,temps,relay_state):
     #import ipdb;ipdb.set_trace()
-    rowvals = (str(int(time.time())),str(temps[0]),str(temps[1]),str(temps[2]),str(relay_state))
+    rowvals = (str(int(time.time())),str(set_temp),str(temps[0]),str(temps[1]),str(temps[2]),str(relay_state))
     row = ','.join(rowvals)
     return row
 
 def get_relay_state():
-    return os.system('gpio -g read 17');
+    #return os.system('gpio -g read 17');
+    return GPIO.input(gpio_pin)
+
 
 def check_if_switch_relay(temp):
     desired_relay_state = 0
@@ -101,18 +110,13 @@ def check_if_switch_relay(temp):
         print "*** Changing relay to {0} ***".format(set_relay_state)
 
 def set_relay(relay_state):
-    cmd = 'gpio -g write 17 ' + str(relay_state)
-    print "--running command: " + cmd
-    os.system(cmd)
+    GPIO.output(gpio_pin, relay_state)
+    print " --SET RELAY-- Setting GPIO to state {0}".relay_state
 
-# def relay_on():
-#     print "** Turning relay on **"
-#     os.system('gpio -g write 17 1')
+    #cmd = 'gpio -g write 17 ' + str(relay_state)
+    #print "--running command: " + cmd
+    #os.system(cmd)
 
-
-# def relay_off():
-#     print "** Turning relay off **"
-#     os.system('gpio -g write 17 0')
 
 
 def main():
@@ -124,13 +128,16 @@ def main():
     while True:
         with open(datafile_name, 'a') as datafile:
 
-            temps = get_temps()
+            read_temps = get_temps()
 
-            check_if_switch_relay(temps[1])
+            #set_temp = get_set_temp()
+            set_temp = 1000
+
+            check_if_switch_relay(temps[1], set_temp)
 
             relay_state = get_relay_state()
 
-            row = generate_row(temps, relay_state)
+            row = generate_row(set_temp, read_temps, relay_state)
 
             datafile.write(row + '\n')
 
