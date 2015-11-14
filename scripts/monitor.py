@@ -1,3 +1,5 @@
+#!/home/ken/.virtualenvs/pi-mon/bin/python
+
 #temp controller
 import os
 import glob
