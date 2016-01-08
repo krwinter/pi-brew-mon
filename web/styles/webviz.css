@@ -163,3 +163,7 @@ textarea {
     font-weight: bold;
     padding: 5px;
 }
+
+.pill {
+    background-color: #dd11aa;
+}

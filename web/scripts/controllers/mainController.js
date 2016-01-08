@@ -123,7 +123,7 @@ define([
 
                 // triggers new page controller - same as if triggered by nav click
                 if (currentRoute = '' || !currentRoute) {
-                    events.dispatch('navToPage', 'brewTemp');
+                    events.dispatch('navToPage', 'breweryHome');
                     //this.showPage('brewTemp');
                 }
                 //this.showPage('marketplaceTransactions');

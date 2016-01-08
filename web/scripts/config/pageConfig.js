@@ -25,6 +25,50 @@ define([
 
     var pages = {
 
+        /*samplePage: {
+            pageTitle: value || default
+            pageModel: value || baseModel
+            pageController: value || baseController
+            pageView: value || baseView
+            pageTemplate: value || baseTemplate
+        }
+        */
+
+        breweryHome: {
+
+            pageTitle: 'Brew Home',
+
+            pageController: "BaseController",
+
+            pageModel: "models/BreweryHomeModel",
+
+            api: {
+
+                type: 'file',
+
+                file: 'http://localhost:8000/data/brewtemp.csv'
+
+            },
+
+            pageView: "views/breweryHomeView",
+
+            pageTemplate: "templates/breweryHome.html",
+
+            options: { },
+
+            filterControls: ['date'],
+
+            aboutContent: "Enrollment and unenrollment events are typically triggered by a utility action, usually the sending of \
+            an file. These are recorded as they occur and are tallied by month. ",
+
+            sql: enrollmentsSql,
+
+            repoUrl: "https://github.com/simpleenergy/data-democracy/blob/master/queries/enrollment/sdge_by_date.md",
+
+            extra: 'Real Slack integration coming soon...'
+
+        },
+
         brewTemp: {
 
             pageTitle: 'Brew Temp',

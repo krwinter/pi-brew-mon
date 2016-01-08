@@ -31,8 +31,8 @@ gpio_pin = 17
 
 
 device_dir = '/sys/bus/w1/devices/'
-data_dir = '/home/ken/pi-brew-mon/scripts/data/'  #TODO - make relative
-target_temp_file = '/home/ken/pi-brew-mon/scripts/config/target_temp.txt'
+data_dir = '/home/ken/brewPi/pi-brew-mon/scripts/data/'  #TODO - make relative
+target_temp_file = '/home/ken/brewPi/pi-brew-mon/scripts/config/target_temp.txt'
 
 datafile_name = 'data/datafile' + str(time.strftime( "%Y%m%d_%H%M%S", time.localtime())) + '.csv'
 print "Creating datafile" + datafile_name

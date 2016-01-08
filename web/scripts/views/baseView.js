@@ -2,13 +2,17 @@ define([
     'marionette',
     'utils/events',
     'config/pageConfig',
-    'text!templates/baseTemplate.html'
+    'views/epoxyMixin',
+    'text!templates/baseTemplate.html',
+    'cocktail'
 
      ], function(
          Marionette,
          events,
          pageConfig,
-         htmlTemplate
+         epoxyMixin,
+         htmlTemplate,
+         Cocktail
         ) {
 
 
@@ -48,6 +52,7 @@ define([
             events.remove('filtersUpdated', this.onDataLoaded );
         },
 
+        mixin: epoxyMixin,
 
         initialize: function(options) {
             this.options = options;     // want to set this here?  or unpack it?
@@ -57,6 +62,8 @@ define([
 
             // TODO - figure out how to dynamically require needed templates
             //this.setTemplate();
+            Cocktail.mixin(this, epoxyMixin);
+
         },
 
         setTemplate: function(options) {
@@ -119,8 +126,12 @@ define([
     });
 
 
+    //Cocktail.mixin(view, epoxyMixin);
+    //_.extend(view.prototype, epoxyMixin);
+    //view.initialize();
     return view;
 
     }
+
 
 );

@@ -16,7 +16,9 @@ require.config({
             bootstrap: '../lib/bootstrap.min',
             datepicker: '../lib/bootstrap-datepicker.min',   // https://github.com/eternicode/bootstrap-datepicker
             filesaver: '../lib/FileSaver.min',  // https://github.com/eligrey/FileSaver.js
-            q: '../lib/q'
+            q: '../lib/q',
+            epoxy: '../lib/backbone.epoxy.min',
+            cocktail: '../lib/cocktail-0.5.10.min'
         },
         // paths: {
         //     lib: "../lib",
@@ -51,6 +53,9 @@ require.config({
 
             datepicker: {
                 deps: ['bootstrap']
+            },
+            epoxy: {
+                deps: ['underscore', 'jquery']
             }
 
         }

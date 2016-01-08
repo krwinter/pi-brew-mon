@@ -92,6 +92,7 @@ define([
 
                         console.log('hi');
                         this.viewInstance = new viewClass(options);
+                        //this.viewInstance.applyBindings();
                         // useful to listen here?
                         // if (this.modelInstance.dataLoadEvent) {
                         //     events.listen(this.modelInstance.dataLoadEvent, this.dataLoaded, this)

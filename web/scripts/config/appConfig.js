@@ -19,7 +19,8 @@ define(function() {
         downloadGeneratePjsApiPath: '/download/pjs',
 
         viewsEnabled: [
-            'brewTemp'
+            'brewTemp',
+            'breweryHome'
         ],
 
         qsFilters: ['startDate','endDate']
