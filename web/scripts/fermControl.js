@@ -15,13 +15,15 @@ var FermControl = React.createClass({
 
 		console.log('MOUNT');
 		this.setState({currentTemp: 25.5, setTemp: 25});
-		debugger
-		Store.addChangeListener(this._onChange);
+		//debugger
+		//Store.addChangeListener(this._onChange);
+		Store.on('change', this._onChange, this).bind(this);
 		Api.getFermData();
 	},
 
 	componentWillUnmount: function() {
-		store.removeChangeListener(this._onChange);
+		//store.removeChangeListener(this._onChange);
+		Store.off(null, null, this);
 	},
 
 	render: function() {
@@ -44,7 +46,7 @@ var FermControl = React.createClass({
 	},
 
 	_onChange: function() {
-		debugger
+		//debugger
 		this.setState(Store.getFermState());
 	}
 });
