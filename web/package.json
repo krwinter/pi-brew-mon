@@ -16,12 +16,15 @@
     "react": "^0.14.6"
   },
   "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
     "browserify": "^6.2.0",
     "envify": "^3.0.0",
     "jest-cli": "^0.4.3",
     "reactify": "^0.15.2",
     "uglify-js": "~2.4.15",
-    "watchify": "^2.1.1"
+    "watchify": "^2.1.1",
+    "webpack": "^1.12.11"
   },
   "scripts": {
     "start": "watchify --exclude node_modules -o scripts/main.js -v -d scripts/app.js | exorcist scripts/main.map.js ",
