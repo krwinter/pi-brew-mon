@@ -15,4 +15,4 @@ def get_set_temp():
 
     return read_temp
 
-print get_set_temp()
+print 9999
