@@ -1,19 +1,19 @@
-import sys
-import os
 
-#target_temp_file = 'app/python/config/target_temp.txt'
-target_temp_file = os.path.join(os.path.dirname(sys.argv[0])) + '/config/target_temp.txt'
+import RPi.GPIO as GPIO
 
-def get_set_temp():
-    # for now just a number in a file
-    f = open(target_temp_file, 'r')
-    read_temp = f.readlines()
-    f.close()
+gpio_pin = 17
 
-    # convert
-    read_temp = int(read_temp[0])
+def get_relay_state():
+    
+    relay_state = 0
 
-    return read_temp
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(gpio_pin, GPIO.OUT)
+
+    relay_state = GPIO.input(gpio_pin)
+
+    return relay_state
 
 #TODO - set so can use as cmd line or part of main daemon
-print get_set_temp()
+print get_relay_state()
