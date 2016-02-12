@@ -3,7 +3,14 @@
 import sys
 import os
 
-#target_temp_file = 'app/python/config/target_temp.txt'
+# print 'os=' + os.name
+
+# import platform
+# print 'platform=' + platform.system() + ' release=' + platform.release()
+
+from config import vars as config
+# print "myvar=" + config.MY_VAR 
+
 target_temp_file = os.path.join(os.path.dirname(sys.argv[0])) + '/config/target_temp.txt'
 
 def get_set_temp():
@@ -18,4 +25,5 @@ def get_set_temp():
     return read_temp
 
 #TODO - set so can use as cmd line or part of main daemon
-print get_set_temp()
+print str(get_set_temp()) + config.MY_VAR
+#print 999999
