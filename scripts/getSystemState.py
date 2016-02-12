@@ -1,7 +1,8 @@
+#! /usr/bin/env python
+
+
 from subprocess import call, check_output
 import psutil
-
-
 
 
 def get_system_state():
