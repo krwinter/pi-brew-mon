@@ -4,8 +4,9 @@ import sys
 import os
 import glob
 
+from config import vars as config
 
-device_dir = '/sys/bus/w1/devices/'
+device_dir = config.READ_TEMP_DIR
 
 def read_temp_raw(device_file):
     f = open(device_file, 'r')
@@ -28,9 +29,15 @@ def read_temp(device_file):
 
 def get_temps():
 
+    if config.ENV == 'pi':
+        total_temp_sensors = 3
+    else:
+        total_temp_sensors = 1
+
     all_temps = []
-    for f in range(3):
+    for f in range(total_temp_sensors):
         # we should have 3 - which is which???
+        #print 'device dir is ' + os.path.abspath(device_dir) + ' and glob is ' + "+".join(glob.glob(device_dir + '28*'))
         device_folder = glob.glob(device_dir + '28*')[f]
         device_file = device_folder + '/w1_slave'
 
