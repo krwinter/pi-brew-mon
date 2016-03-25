@@ -48,7 +48,8 @@ def get_temps():
         all_temps.append(temp)
 
     #print "---"
-    return all_temps
+    # just the 1st one for now
+    return all_temps[0]
 
 #TODO - set so can use as cmd line or part of main daemon
 print get_temps()

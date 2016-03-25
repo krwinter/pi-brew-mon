@@ -13,6 +13,7 @@ from config import vars as config
 
 target_temp_file = os.path.join(os.path.dirname(sys.argv[0])) + '/config/target_temp.txt'
 
+# TODO - replace this with a call to the getSetTemp.py
 def get_set_temp():
     # for now just a number in a file
     f = open(target_temp_file, 'r')
@@ -24,7 +25,14 @@ def get_set_temp():
 
     return read_temp
 
+def set_set_temp(temp):
+    # for now just a number in a file
+    f = open(target_temp_file, 'w')
+    f.write(temp)
+    f.close()
+
+
 #TODO - set so can use as cmd line or part of main daemon
+set_set_temp(sys.argv[1])
 print str(get_set_temp())
-#print str(get_set_temp()) + config.MY_VAR
 #print 999999
