@@ -20,7 +20,7 @@ def get_set_temp():
     f.close()
 
     # convert
-    read_temp = int(read_temp[0])
+    read_temp = float(read_temp[0])
 
     return read_temp
 

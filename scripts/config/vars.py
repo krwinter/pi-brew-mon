@@ -9,6 +9,9 @@ if len(sys.argv) > 1:
 else:
 	env = 'default'
 
+MIN_SET_TEMP = 5
+MAX_SET_TEMP = 35
+
 if (env == 'pi'):
 	MY_VAR = 'PI!!'
 	ENV = 'pi'
