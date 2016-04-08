@@ -24,7 +24,5 @@ def get_set_temp():
 
     return read_temp
 
-#TODO - set so can use as cmd line or part of main daemon
-print str(get_set_temp())
-#print str(get_set_temp()) + config.MY_VAR
-#print 999999
+if __name__ == "__main__":
+	print str(get_set_temp())
