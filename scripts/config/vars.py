@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 import sys
+import os
 
 
 # env is passed in on command line - 'pi' or None currently
@@ -12,7 +13,7 @@ else:
 MIN_SET_TEMP = 5
 MAX_SET_TEMP = 35
 
-if (env == 'pi'):
+if (env == 'pi' or os.path.isdir('/sys/bus/w1/devices/')):
 	MY_VAR = 'PI!!'
 	ENV = 'pi'
 	READ_TEMP_DIR = '/sys/bus/w1/devices/'

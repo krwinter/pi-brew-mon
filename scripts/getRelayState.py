@@ -19,5 +19,5 @@ def get_relay_state():
 
 	return relay_state
 
-#TODO - set so can use as cmd line or part of main daemon
-print get_relay_state()
+if __name__ == "__main__":
+	print get_relay_state()

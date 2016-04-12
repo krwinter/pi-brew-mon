@@ -27,7 +27,7 @@ def read_temp(device_file):
         temp_f = round(temp_c * 9.0 / 5.0 + 32.0, 2)
         return temp_c
 
-def get_temps():
+def get_current_temp():
 
     if config.ENV == 'pi':
         total_temp_sensors = 3
@@ -51,5 +51,7 @@ def get_temps():
     # just the 1st one for now
     return all_temps[0]
 
-#TODO - set so can use as cmd line or part of main daemon
-print get_temps()
+if __name__ == "__main__":
+    print get_current_temp()
+
+

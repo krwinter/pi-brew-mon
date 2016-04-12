@@ -4,6 +4,8 @@
 from subprocess import call, check_output
 import psutil
 
+# make sure monitor process is running
+# OPTIONAL - check GPIO is init and set correctly
 
 def get_system_state():
 
@@ -22,13 +24,15 @@ def get_system_state():
 			#print (pinfo['cmdline'])
 			shell_command = pinfo['cmdline']
 			#print shell_command
-			if shell_command and 'python' in shell_command[0] and len(shell_command) > 0 and 'monitor.py' in shell_command[1]:
+			if shell_command and 'python' in shell_command[0] and len(shell_command) > 0 and 'run.py' in shell_command[1]:
 				running = 1
 				break
+				os.system('kill %d' % os.getpid())
 
 
 	return running
 
 
-#TODO - set so can use as cmd line or part of main daemon
-print get_system_state()
+if __name__ == "__main__":
+	print get_system_state()
+	
