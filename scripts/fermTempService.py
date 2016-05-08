@@ -54,9 +54,24 @@ do while:
 
 def startup():
 
-    set_system_state(1)
+    #set_system_state(1) # already done by service - we're running here aren't we
+    setup_gpio()
 
     get_polling_config()
+
+
+def setup_gpio():
+    if config.ENV == 'pi' or os.path.isdir('/sys/bus/w1/devices/'):
+        import RPi.GPIO as GPIO
+        os.system('sudo modprobe w1-gpio')
+        os.system('sudo modprobe w1-therm')
+        os.system('gpio -g mode 17 out')
+        os.system('gpio -g mode 22 out')
+
+        gpio_pin = 17
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(gpio_pin, GPIO.OUT)
+    print "Hardware turned on"
 
 
 def get_polling_config():

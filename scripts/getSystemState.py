@@ -1,16 +1,15 @@
 #! /usr/bin/env python
-
+import ipdb
+import psutil
 
 from subprocess import call, check_output
-import psutil
 
 # make sure monitor process is running
 # OPTIONAL - check GPIO is init and set correctly
 
 def get_system_state():
 
-	#call(["ls", "-l"])
-	#running = check_output(["ps aux | grep python | grep monitor.py"], shell=True)
+	#TODO - call service status command
 
 	running = 0
 
@@ -24,7 +23,7 @@ def get_system_state():
 			#print (pinfo['cmdline'])
 			shell_command = pinfo['cmdline']
 			#print shell_command
-			if shell_command and 'python' in shell_command[0] and len(shell_command) > 0 and 'run.py' in shell_command[1]:
+			if shell_command and 'python' in shell_command[0] and len(shell_command) > 0 and 'fermTempService.py' in shell_command[1]:
 				running = 1
 				break
 				os.system('kill %d' % os.getpid())
@@ -35,4 +34,3 @@ def get_system_state():
 
 if __name__ == "__main__":
 	print get_system_state()
-	

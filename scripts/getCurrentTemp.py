@@ -30,7 +30,7 @@ def read_temp(device_file):
 def get_current_temp():
 
     if config.ENV == 'pi':
-        total_temp_sensors = 3
+        total_temp_sensors = 1
     else:
         total_temp_sensors = 1
 
@@ -38,7 +38,8 @@ def get_current_temp():
     for f in range(total_temp_sensors):
         # we should have 3 - which is which???
         #print 'device dir is ' + os.path.abspath(device_dir) + ' and glob is ' + "+".join(glob.glob(device_dir + '28*'))
-        device_folder = glob.glob(device_dir + '28*')[f]
+        #device_folder = glob.glob(device_dir + '28*')[f]
+        device_folder = '/sys/devices/w1_bus_master1/28-00000520ce11'
         device_file = device_folder + '/w1_slave'
 
         temp = read_temp(device_file)
