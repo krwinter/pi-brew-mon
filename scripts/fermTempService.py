@@ -5,6 +5,7 @@ import os
 import sys
 import glob
 import time
+import logging
 
 from config import vars as config
 
@@ -33,6 +34,10 @@ log_interval = 1
 # how much we need to be away from set temp to take action 
 upper_temp_slop = 0.5
 lower_temp_slop = 0.5
+
+#logging
+logging.basicConfig(filename='mylog.log',level=logging.INFO, format='%(asctime)s %(message)s')
+
 
 # RUN
 
@@ -72,6 +77,7 @@ def setup_gpio():
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(gpio_pin, GPIO.OUT)
     print "Hardware turned on"
+    logging.info("Hardware ON")
 
 
 def get_polling_config():
@@ -104,6 +110,7 @@ def set_relay_state_based_on_temps():
     set_temp = get_set_temp()
     current_temp = get_current_temp()
     print "Set temp is {0} and current temp is {1}".format(set_temp, current_temp)
+    logging.info('Set temp is %s and current temp is %s', set_temp, current_temp)
     desired_relay_state = 0
 
     if current_temp >= set_temp + upper_temp_slop:
@@ -117,7 +124,7 @@ def set_relay_state_based_on_temps():
         relay_state = desired_relay_state
         set_relay_state(relay_state)
         print "*** Change relay to {0} ***".format(relay_state)
-
+        logging.info('*** Change relay to %s ***', relay_state)
 
 def generate_row(set_temp,temps,relay_state):
     with open(datafile_name, 'a') as datafile:
@@ -139,6 +146,7 @@ def main():
     get_polling_config()
 
     print "Looping...."
+    logging.info("STARTING MAIN EVENT LOOP")
 
     while True:
 
