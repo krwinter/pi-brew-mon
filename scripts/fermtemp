@@ -21,7 +21,8 @@ case "$1" in
         ;;
     stop)
         echo "Stopping fermtemp"
-        killall fermTempService.py
+        killall /home/ken/.virtualenvs/pi-mon/bin/python /opt/fermtemp/fermTempService.py
+        #killall fermTempService.py
         ;;
     *)
         echo "Usage: /etc/init.d/fermtemp start|stop"

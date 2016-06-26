@@ -28,6 +28,8 @@ print "Creating datafile" + datafile_name
 
 device_dir = '/sys/bus/w1/devices/'
 
+logfilename='/var/log/fermtemp.log'
+
 poll_interval = 1
 log_interval = 1
 
@@ -36,7 +38,7 @@ upper_temp_slop = 0.5
 lower_temp_slop = 0.5
 
 #logging
-logging.basicConfig(filename='mylog.log',level=logging.INFO, format='%(asctime)s %(message)s')
+logging.basicConfig(filename=logfilename,level=logging.INFO, format='%(asctime)s %(message)s')
 
 
 # RUN
