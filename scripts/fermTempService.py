@@ -15,6 +15,7 @@ from getRelayState import get_relay_state
 from getCurrentTemp import get_current_temp
 from setRelayState import set_relay_state
 from setSystemState import set_system_state
+from copyCurrentTemp import copy_current_temp
 
 base_dir = os.path.join(os.path.dirname(sys.argv[0]))
 config_dir = base_dir   + '/config/'
@@ -145,11 +146,12 @@ def main():
 
     startup()
 
-    get_polling_config()
+    #get_polling_config()
 
     print "Looping...."
     logging.info("STARTING MAIN EVENT LOOP")
 
+    loop_counter = 1
     while True:
 
         mode = get_relay_mode() # current temp, set temp, relay mode
@@ -163,6 +165,14 @@ def main():
         if log_interval%poll_interval == 0:
             #write_data()
             pass
+
+        # get and write the real temp from device (which is blocking) every 4 polls
+        # TODO - use a separate thread?
+        if loop_counter%4 == 0:
+            copy_current_temp();
+            loop_counter = 1
+        else:
+            loop_counter++
 
         time.sleep(poll_interval)
 

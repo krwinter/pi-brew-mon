@@ -71,6 +71,8 @@ def execute_restart():
 
 	set_system_state_off()
 
+	# sleep for a sec
+
 	set_system_state_on()
 
 
