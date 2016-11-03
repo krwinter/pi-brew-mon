@@ -18,7 +18,7 @@ if (env == 'pi' or os.path.isdir('/sys/bus/w1/devices/')):
 	ENV = 'pi'
 	#READ_TEMP_DIR = '/sys/bus/w1/devices/'
 	READ_TEMP_DIR = '/sys/devices/w1_bus_master1/28-00000520ce11'
-	CURRENT_TEMP_CACHE = '/opt/fermtemp/scripts/config/currentTemp.txt'
+	CURRENT_TEMP_CACHE = '/opt/fermtemp/config/currentTemp.txt'
 elif (env == 'local'):
 	MY_VAR = 'LOCAL'
 	ENV = 'local'

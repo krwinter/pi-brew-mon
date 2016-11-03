@@ -31,9 +31,6 @@ device_dir = '/sys/bus/w1/devices/'
 
 logfilename='/var/log/fermtemp.log'
 
-poll_interval = 1
-log_interval = 1
-
 # how much we need to be away from set temp to take action 
 upper_temp_slop = 0.5
 lower_temp_slop = 0.5
@@ -65,7 +62,7 @@ def startup():
     #set_system_state(1) # already done by service - we're running here aren't we
     setup_gpio()
 
-    get_polling_config()
+    #get_polling_config()
 
 
 def setup_gpio():
@@ -94,6 +91,11 @@ def get_polling_config():
     log_interval = f.readlines()[0]
     f.close()
 
+    print "Polling interval is {0} seconds".format(poll_interval)
+    print "Logging interval is {0} seconds".format(log_interval)
+
+    return int(poll_interval), int(log_interval)
+
 
 def create_logfile():
     with open(datafile_name, 'a') as datafile:
@@ -107,6 +109,7 @@ def set_relay_state_based_on_mode(relay_mode):
         set_relay_state(1)
     elif relay_mode == 'off':
         set_relay_state(0)
+
 
 # in this instance we're heating
 def set_relay_state_based_on_temps():
@@ -129,6 +132,7 @@ def set_relay_state_based_on_temps():
         print "*** Change relay to {0} ***".format(relay_state)
         logging.info('*** Change relay to %s ***', relay_state)
 
+
 def generate_row(set_temp,temps,relay_state):
     with open(datafile_name, 'a') as datafile:
         row = generate_row(set_temp, read_temps, relay_state)
@@ -146,7 +150,7 @@ def main():
 
     startup()
 
-    #get_polling_config()
+    poll_interval, log_interval = get_polling_config()
 
     print "Looping...."
     logging.info("STARTING MAIN EVENT LOOP")
@@ -169,12 +173,13 @@ def main():
         # get and write the real temp from device (which is blocking) every 4 polls
         # TODO - use a separate thread?
         if loop_counter%4 == 0:
+            print "Now we copy current temp from device"
             copy_current_temp();
             loop_counter = 1
         else:
-            loop_counter++
+            loop_counter+=1
 
-        time.sleep(poll_interval)
+        time.sleep(int(poll_interval))
 
 
 main()
