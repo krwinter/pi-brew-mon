@@ -7,6 +7,7 @@ from subprocess import call, check_output
 # make sure monitor process is running
 # OPTIONAL - check GPIO is init and set correctly
 
+#@profile
 def get_system_state():
 
 	#TODO - call service status command
