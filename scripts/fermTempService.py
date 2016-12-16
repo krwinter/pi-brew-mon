@@ -1,4 +1,4 @@
-#!/home/ken/.virtualenvs/pi-mon/bin/python
+#!/home/ken/.virtualenvs/brewtemp/bin/python
 
 #temp controller
 import os
@@ -15,28 +15,29 @@ from getRelayState import get_relay_state
 from getCurrentTemp import get_current_temp
 from setRelayState import set_relay_state
 from setSystemState import set_system_state
-from copyCurrentTemp import copy_current_temp
+#import ipdb;ipdb.set_trace()
 
-base_dir = os.path.join(os.path.dirname(sys.argv[0]))
+base_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+#base_dir = os.path.join(os.path.dirname(sys.argv[0]))
 config_dir = base_dir   + '/config/'
 data_dir = base_dir   + '/data/'
 set_temp_file = config_dir + 'target_temp.txt'
 poll_interval_file = config_dir + 'poll_interval.txt'
 log_interval_file = config_dir + 'log_interval.txt'
 
-datafile_name = 'data/datafile' + str(time.strftime( "%Y%m%d_%H%M%S", time.localtime())) + '.csv'
-print "Creating datafile" + datafile_name
+# datafile_name = 'data/datafile' + str(time.strftime( "%Y%m%d_%H%M%S", time.localtime())) + '.csv'
+# print "Creating datafile" + datafile_name
 
 device_dir = '/sys/bus/w1/devices/'
 
 logfilename='/var/log/fermtemp.log'
 
-# how much we need to be away from set temp to take action 
+# how much we need to be away from set temp to take action
 upper_temp_slop = 0.5
 lower_temp_slop = 0.5
 
 #logging
-logging.basicConfig(filename=logfilename,level=logging.INFO, format='%(asctime)s %(message)s')
+#logging.basicConfig(filename=logfilename,level=logging.INFO, format='%(asctime)s %(message)s')
 
 
 # RUN
@@ -52,7 +53,7 @@ do while:
     if on/off, make sure set
     else is auto
 2. read set temp
-3. relay on or off 
+3. relay on or off
 4. record data if needed
 
 '''
@@ -76,8 +77,7 @@ def setup_gpio():
         gpio_pin = 17
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(gpio_pin, GPIO.OUT)
-    print "Hardware turned on"
-    logging.info("Hardware ON")
+    log_info("GPIO hardware turned ON")
 
 
 def get_polling_config():
@@ -91,8 +91,8 @@ def get_polling_config():
     log_interval = f.readlines()[0]
     f.close()
 
-    print "Polling interval is {0} seconds".format(poll_interval)
-    print "Logging interval is {0} seconds".format(log_interval)
+    log_info("Polling interval is {0} seconds".format(poll_interval))
+    log_info("Logging interval is {0} seconds".format(log_interval))
 
     return int(poll_interval), int(log_interval)
 
@@ -115,8 +115,7 @@ def set_relay_state_based_on_mode(relay_mode):
 def set_relay_state_based_on_temps():
     set_temp = get_set_temp()
     current_temp = get_current_temp()
-    print "Set temp is {0} and current temp is {1}".format(set_temp, current_temp)
-    logging.info('Set temp is %s and current temp is %s', set_temp, current_temp)
+    log_data("setTemp: {0}, currentTemp: {1}".format(set_temp, current_temp))
     desired_relay_state = 0
 
     if current_temp >= set_temp + upper_temp_slop:
@@ -129,8 +128,7 @@ def set_relay_state_based_on_temps():
     if relay_state != desired_relay_state:
         relay_state = desired_relay_state
         set_relay_state(relay_state)
-        print "*** Change relay to {0} ***".format(relay_state)
-        logging.info('*** Change relay to %s ***', relay_state)
+        log_info("*** Change relay to {1} ***".format(relay_state))
 
 
 def generate_row(set_temp,temps,relay_state):
@@ -144,6 +142,15 @@ def generate_row(set_temp,temps,relay_state):
     row = ','.join(rowvals)
     return row
 
+def log_info(message):
+    # just print for now
+    print message
+
+def log_data(data):
+    # just print for now
+    log_info("*** " + data)
+
+    #post to log server
 
 
 def main():
@@ -152,8 +159,7 @@ def main():
 
     poll_interval, log_interval = get_polling_config()
 
-    print "Looping...."
-    logging.info("STARTING MAIN EVENT LOOP")
+    log_info("STARTING MAIN EVENT LOOP");
 
     loop_counter = 1
     while True:
@@ -170,14 +176,14 @@ def main():
             #write_data()
             pass
 
-        # get and write the real temp from device (which is blocking) every 4 polls
-        # TODO - use a separate thread?
-        if loop_counter%4 == 0:
-            print "Now we copy current temp from device"
-            copy_current_temp();
-            loop_counter = 1
-        else:
-            loop_counter+=1
+        # # get and write the real temp from device (which is blocking) every 4 polls
+        # # TODO - use a separate thread?
+        # if loop_counter%4 == 0:
+        #     print "Now we copy current temp from device"
+        #     cache_current_temp();
+        #     loop_counter = 1
+        # else:
+        #     loop_counter+=1
 
         time.sleep(int(poll_interval))
 

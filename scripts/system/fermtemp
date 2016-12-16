@@ -11,7 +11,7 @@
 # Description:       This service is used to manage a servo
 ### END INIT INFO
 
-COMMAND="/home/ken/.virtualenvs/pi-mon/bin/python /opt/fermtemp/fermTempService.py"
+COMMAND="/home/ken/.virtualenvs/brewtemp/bin/python /opt/fermtemp/fermTempService.py"
 
 
 case "$1" in 
@@ -21,7 +21,7 @@ case "$1" in
         ;;
     stop)
         echo "Stopping fermtemp"
-        killall /home/ken/.virtualenvs/pi-mon/bin/python /opt/fermtemp/fermTempService.py
+        killall /home/ken/.virtualenvs/brewtemp/bin/python /opt/fermtemp/fermTempService.py
         #killall fermTempService.py
         ;;
     *)

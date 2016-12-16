@@ -7,7 +7,8 @@ from config import vars as config
 gpio_pin = 17
 
 
-relay_mode_file = os.path.join(os.path.dirname(sys.argv[0])) + '/config/relay_mode.txt'
+#relay_mode_file = os.path.join(os.path.dirname(sys.argv[0])) + '/config/relay_mode.txt'
+relay_mode_file = os.path.dirname(os.path.abspath(sys.argv[0])) + '/config/relay_mode.txt'
 
 def get_relay_mode():
 

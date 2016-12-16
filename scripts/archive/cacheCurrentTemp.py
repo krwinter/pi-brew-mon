@@ -16,11 +16,11 @@ def write_current_temp(temp):
     f.close()
 
 # the function invoked from outside
-def copy_current_temp():
+def cache_current_temp():
     current_temp = get_current_temp()
     written_temp = write_current_temp(current_temp)
     return written_temp
 
 if __name__ == "__main__":
-    copy_current_temp()
+    cache_current_temp()
     print current_temp

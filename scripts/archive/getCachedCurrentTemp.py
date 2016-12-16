@@ -3,9 +3,6 @@
 import sys
 import os
 
-import sys
-import os
-
 # print 'os=' + os.name
 
 # import platform

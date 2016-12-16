@@ -3,9 +3,9 @@
 import sys
 import os
 from subprocess import call, check_output
-import psutil
+#import psutil
 from getSystemState import get_system_state
-import ipdb
+#import ipdb
 
 from config import vars as config
 #from fermTempService import FermTempService
