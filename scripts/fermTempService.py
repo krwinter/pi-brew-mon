@@ -128,7 +128,7 @@ def set_relay_state_based_on_temps():
     if relay_state != desired_relay_state:
         relay_state = desired_relay_state
         set_relay_state(relay_state)
-        log_info("*** Change relay to {1} ***".format(relay_state))
+        log_info("*** Change relay to {0} ***".format(relay_state))
 
 
 def generate_row(set_temp,temps,relay_state):
