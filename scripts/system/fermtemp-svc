@@ -14,7 +14,7 @@
 COMMAND="/home/ken/.virtualenvs/brewtemp/bin/python /opt/fermtemp/fermTempService.py"
 
 
-case "$1" in 
+case "$1" in
     start)
         echo "Starting fermtemp"
         $COMMAND
@@ -22,14 +22,12 @@ case "$1" in
         ;;
     stop)
         echo "Stopping fermtemp"
-        #killall /home/ken/.virtualenvs/brewtemp/bin/python /opt/fermtemp/fermTempService.py
-        #killall fermTempService.py
         kill -9 $(ps aux | grep fermtemp | grep -v grep | awk '{print $2}')
         echo "Fermtemp stopped"
         ;;
     status)
-        ps aux | grep fermtemp > /dev/null
-        if [ $? -eq 0 ]; then
+        line=$(ps aux | grep fermtemp | grep -v grep)
+        if [ -z "$line" ]; then
             echo "Fermtemp is running"
         else
             echo "Fermtemp is stopped"

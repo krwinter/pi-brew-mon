@@ -15,6 +15,7 @@ from getRelayState import get_relay_state
 from getCurrentTemp import get_current_temp
 from setRelayState import set_relay_state
 from setSystemState import set_system_state
+from updateHardwareSettings import updateHardwareSettings
 #import ipdb;ipdb.set_trace()
 
 base_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
@@ -97,51 +98,6 @@ def get_polling_config():
     return int(poll_interval), int(log_interval)
 
 
-def create_logfile():
-    with open(datafile_name, 'a') as datafile:
-        header = 'timestamp,set_temp,t1,t2,t3,relay_state' + '\n'
-        datafile.write(header)
-
-
-def set_relay_state_based_on_mode(relay_mode):
-
-    if relay_mode == 'on':
-        set_relay_state(1)
-    elif relay_mode == 'off':
-        set_relay_state(0)
-
-
-# in this instance we're heating
-def set_relay_state_based_on_temps():
-    set_temp = get_set_temp()
-    current_temp = get_current_temp()
-    log_data("setTemp: {0}, currentTemp: {1}".format(set_temp, current_temp))
-    desired_relay_state = 0
-
-    if current_temp >= set_temp + upper_temp_slop:
-        desired_relay_state = 0
-
-    if current_temp <= set_temp - lower_temp_slop:
-        desired_relay_state = 1
-
-    relay_state = get_relay_state()
-    if relay_state != desired_relay_state:
-        relay_state = desired_relay_state
-        set_relay_state(relay_state)
-        log_info("*** Change relay to {0} ***".format(relay_state))
-
-
-def generate_row(set_temp,temps,relay_state):
-    with open(datafile_name, 'a') as datafile:
-        row = generate_row(set_temp, read_temps, relay_state)
-        datafile.write(row + '\n')
-        datafile.close()
-
-    #import ipdb;ipdb.set_trace()
-    rowvals = (str(int(time.time())),str(set_temp),str(temps[0]),str(temps[1]),str(temps[2]),str(relay_state))
-    row = ','.join(rowvals)
-    return row
-
 def log_info(message):
     # just print for now
     print message
@@ -164,13 +120,7 @@ def main():
     loop_counter = 1
     while True:
 
-        mode = get_relay_mode() # current temp, set temp, relay mode
-
-        if mode == 'on' or mode == 'off':
-            set_relay_state_based_on_mode(mode)
-        elif mode == 'auto':
-            set_relay_state_based_on_temps()
-        # else shutdown???
+        updateHardwareSettings()
 
         if log_interval%poll_interval == 0:
             #write_data()
