@@ -2,6 +2,8 @@
 
 import sys
 import os
+from updateHardwareSettings import updateHardwareSettings
+
 
 
 from config import vars as config
@@ -19,10 +21,14 @@ def is_number(s):
 
 def set_set_temp(temp):
     # for now just a number in a file
-    if is_number(temp) and float(temp) >= config.MIN_SET_TEMP and float(temp) <= config.MAX_SET_TEMP: 
+    if is_number(temp) and float(temp) >= config.MIN_SET_TEMP and float(temp) <= config.MAX_SET_TEMP:
         f = open(target_temp_file, 'w')
         f.write(temp)
         f.close()
+
+        # since temp changed, force hardware update (independent of service that may be running)
+        updateHardwareSettings();
+
         return True
     else:
         return False
