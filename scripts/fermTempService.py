@@ -19,26 +19,9 @@ from updateHardwareSettings import updateHardwareSettings
 #import ipdb;ipdb.set_trace()
 
 base_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
-#base_dir = os.path.join(os.path.dirname(sys.argv[0]))
 config_dir = base_dir   + '/config/'
-data_dir = base_dir   + '/data/'
-set_temp_file = config_dir + 'target_temp.txt'
 poll_interval_file = config_dir + 'poll_interval.txt'
 log_interval_file = config_dir + 'log_interval.txt'
-
-# datafile_name = 'data/datafile' + str(time.strftime( "%Y%m%d_%H%M%S", time.localtime())) + '.csv'
-# print "Creating datafile" + datafile_name
-
-device_dir = '/sys/bus/w1/devices/'
-
-logfilename='/var/log/fermtemp.log'
-
-# how much we need to be away from set temp to take action
-upper_temp_slop = 0.5
-lower_temp_slop = 0.5
-
-#logging
-#logging.basicConfig(filename=logfilename,level=logging.INFO, format='%(asctime)s %(message)s')
 
 
 # RUN
@@ -75,9 +58,8 @@ def setup_gpio():
         os.system('gpio -g mode 17 out')
         os.system('gpio -g mode 22 out')
 
-        gpio_pin = 17
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(gpio_pin, GPIO.OUT)
+        GPIO.setup(config.GPIO_PIN, GPIO.OUT)
     log_info("GPIO hardware turned ON")
 
 

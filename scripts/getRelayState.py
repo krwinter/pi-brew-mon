@@ -1,19 +1,19 @@
 #! /usr/bin/env python
 import random
-from config import vars as config
+import os
 
-gpio_pin = 17
+from config import vars as config
 
 
 def get_relay_state():
 
 	relay_state = 0
-	if config.ENV == 'pi':
+	if os.path.isdir('/sys/bus/w1/devices/'):
 		import RPi.GPIO as GPIO
 		GPIO.setwarnings(False)
 		GPIO.setmode(GPIO.BCM)
-		GPIO.setup(gpio_pin, GPIO.OUT)
-		relay_state = GPIO.input(gpio_pin)
+		GPIO.setup(config.GPIO_PIN, GPIO.OUT)
+		relay_state = GPIO.input(config.GPIO_PIN)
 	else:
 		relay_state = random.randint(0,1)
 

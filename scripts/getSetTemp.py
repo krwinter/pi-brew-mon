@@ -3,15 +3,10 @@
 import sys
 import os
 
-# print 'os=' + os.name
-
-# import platform
-# print 'platform=' + platform.system() + ' release=' + platform.release()
-
 from config import vars as config
-# print "myvar=" + config.MY_VAR 
 
-target_temp_file = os.path.join(os.path.dirname(sys.argv[0])) + '/config/target_temp.txt'
+#target_temp_file = os.path.join(os.path.dirname(sys.argv[0])) + '/config/target_temp.txt'
+target_temp_file = config.MAIN_PY_FILE_PATH + config.SET_TEMP_FILE_PATH
 
 def get_set_temp():
     # for now just a number in a file

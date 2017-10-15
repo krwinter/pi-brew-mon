@@ -28,32 +28,10 @@ def read_temp(device_file):
         return temp_c
 
 def get_current_temp():
-    #ipdb.set_trace()
-    if config.ENV == 'pi':
-        total_temp_sensors = 1
-    else:
-        total_temp_sensors = 1
+    device_file = device_dir + '/w1_slave'
+    current_temp = read_temp(device_file)
+    return current_temp
 
-    all_temps = []
-    for f in range(total_temp_sensors):
-        # we should have 3 - which is which???
-        #print 'device dir is ' + os.path.abspath(device_dir) + ' and glob is ' + "+".join(glob.glob(device_dir + '28*'))
-        #device_folder = glob.glob(device_dir + '28*')[f]
-
-        # TODO - fix this
-        #device_dir = '/sys/devices/w1_bus_master1/28-00000520ce11'
-
-        device_file = device_dir + '/w1_slave'
-
-        temp = read_temp(device_file)
-
-        #print "Temp for {0} is {1}".format(device_file, temp)
-
-        all_temps.append(temp)
-
-    #print "---"
-    # just the 1st one for now
-    return all_temps[0]
 
 if __name__ == "__main__":
     print str(get_current_temp())
