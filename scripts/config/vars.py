@@ -11,12 +11,13 @@ else:
 	env = 'default'
 
 MIN_SET_TEMP = 5
-MAX_SET_TEMP = 35
+MAX_SET_TEMP = 40	
 
 if (env == 'pi' or os.path.isdir('/sys/bus/w1/devices/')):
 	MY_VAR = 'PI!!'
 	ENV = 'pi'
 	#READ_TEMP_DIR = '/sys/bus/w1/devices/'
+	# FREEZER PROBE = 28-00000520ca72
 	READ_TEMP_DIR = '/sys/devices/w1_bus_master1/28-00000520ce11'
 	CURRENT_TEMP_CACHE = '/opt/fermtemp/config/currentTemp.txt'
 elif (env == 'local'):

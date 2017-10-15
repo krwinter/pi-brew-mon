@@ -59,7 +59,7 @@ def set_relay_state_based_on_mode(relay_mode):
 def set_relay_state_based_on_temps():
     set_temp = get_set_temp()
     current_temp = get_current_temp()
-    log_data("setTemp: {0}, currentTemp: {1}".format(set_temp, current_temp))
+    log_info("setTemp: {0}, currentTemp: {1}".format(set_temp, current_temp))
     desired_relay_state = 0
 
     if current_temp >= set_temp + upper_temp_slop:
@@ -78,7 +78,8 @@ def set_relay_state_based_on_temps():
 
 def log_info(message):
     # just print for now
-    print message
+    if __name__ == "__main__":
+        print message
 
 def log_data(data):
     # just print for now

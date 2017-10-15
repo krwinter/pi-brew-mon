@@ -8,6 +8,9 @@ from getRelayMode import get_relay_mode
 
 gpio_pin = 17
 
+def log_info(msg):
+    if __name__ == "__main__":
+        print msg
 
 def set_relay_state(relay_state):
     if int(relay_state) == 0 or int(relay_state) == 1:
@@ -17,9 +20,9 @@ def set_relay_state(relay_state):
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(gpio_pin, GPIO.OUT)
             GPIO.output(gpio_pin, int(relay_state))
-        print " --SET RELAY-- Setting GPIO to state {0}".format(relay_state)
+        log_info( " --SET RELAY-- Setting GPIO to state {0}".format(relay_state))
     else:
-        print "Invalid relay_state, only 0 or 1 allowed"
+        log_info( "Invalid relay_state, only 0 or 1 allowed")
 
 
 if __name__ == "__main__":
