@@ -11,7 +11,8 @@
 # Description:       This service is used to manage a servo
 ### END INIT INFO
 
-COMMAND="/home/ken/.virtualenvs/brewtemp/bin/python /opt/fermtemp/fermTempService.py -m cool"
+#COMMAND="/home/ken/.virtualenvs/brewtemp/bin/python /opt/fermtemp/fermTempService.py -m cool"
+COMMAND="/home/ken/.virtualenvs/brewtemp/bin/python /opt/fermtemp-cool/fermTempService.py -m cool"
 
 
 case "$1" in
