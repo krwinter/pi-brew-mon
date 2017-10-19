@@ -6,4 +6,7 @@
 sudo ln -snf /opt/fermtemp/system/fermtemp-svc /etc/init.d/fermtemp
 sudo ln -snf /opt/fermnode/fermnode-svc /etc/init.d/fermnode
 
+sudo ln -snf /opt/fermtemp/system/fermtemp-svc /etc/init.d/fermtemp-cool
+sudo ln -snf /opt/fermnode/fermnode-svc /etc/init.d/fermnode-cool
+
 sudo chmod +x /etc/init.d/ferm*
