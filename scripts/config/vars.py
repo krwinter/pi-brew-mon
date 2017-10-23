@@ -9,7 +9,8 @@ else:
 	env = 'default'
 
 
-if (env == 'pi' or os.path.isdir('/sys/bus/w1/devices/')):
+#if (env == 'pi' or os.path.isdir('/sys/bus/w1/devices/')):
+if (env == 'pi' or env == 'pi-heat'):
 	ENV = 'pi'
 	DATA_FOLDER = '/data/channel1'
 	TEMP_MODE = 'HEAT'
@@ -18,7 +19,7 @@ if (env == 'pi' or os.path.isdir('/sys/bus/w1/devices/')):
 	CURRENT_TEMP_CACHE = '/opt/fermtemp/config/channel1/currentTemp.txt'
 elif (env == 'pi-cool'):
 	ENV = 'pi-cool'
-	DATA_FOLDER = '/data/channel1'
+	DATA_FOLDER = '/data/channel2'
 	TEMP_MODE = 'COOL'
 	GPIO_PIN = 22
 	READ_TEMP_DIR = '/sys/devices/w1_bus_master1/28-00000520ca72'
