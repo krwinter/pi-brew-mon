@@ -8,7 +8,6 @@ if len(sys.argv) > 1:
 else:
 	env = 'default'
 
-print "Env is {0}".format(env)
 
 #if (env == 'pi' or os.path.isdir('/sys/bus/w1/devices/')):
 if (env == 'pi' or env == 'pi-heat'):
