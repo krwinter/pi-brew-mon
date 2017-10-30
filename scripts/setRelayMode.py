@@ -8,7 +8,8 @@ from getRelayMode import get_relay_mode
 gpio_pin = 17
 
 
-relay_mode_file = os.path.join(os.path.dirname(sys.argv[0])) + '/config/relay_mode.txt'
+#relay_mode_file = os.path.join(os.path.dirname(sys.argv[0])) + '/config/relay_mode.txt'
+relay_mode_file = config.MAIN_PY_FILE_PATH + config.RELAY_MODE_FILE_PATH
 
 
 def set_relay_mode(mode):
@@ -25,5 +26,5 @@ def set_relay_mode(mode):
 
 
 if __name__ == "__main__":
-	set_relay_mode(sys.argv[1])
+	set_relay_mode(sys.argv[2])
 	print str(get_relay_mode())

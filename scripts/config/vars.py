@@ -8,6 +8,7 @@ if len(sys.argv) > 1:
 else:
 	env = 'default'
 
+print "Env is {0}".format(env)
 
 #if (env == 'pi' or os.path.isdir('/sys/bus/w1/devices/')):
 if (env == 'pi' or env == 'pi-heat'):
@@ -32,9 +33,10 @@ elif (env == 'local'):
 	CURRENT_TEMP_CACHE = 'config/currentTemp.txt'
 else:
 	ENV = 'node'
+	DATA_FOLDER = '/data/local'
 	TEMP_MODE = 'HEAT'
-	READ_TEMP_DIR = 'python/config/28-00000044ff99bb'
-	CURRENT_TEMP_CACHE = 'python/config/currentTemp.txt'
+	READ_TEMP_DIR = 'config/28-00000044ff99bb'
+	CURRENT_TEMP_CACHE = 'config/currentTemp.txt'
 
 
 MAIN_PY_FILE_PATH = os.path.dirname(os.path.abspath(sys.argv[0]))

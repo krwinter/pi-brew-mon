@@ -9,7 +9,8 @@ from updateHardwareSettings import updateHardwareSettings
 from config import vars as config
 from getSetTemp import get_set_temp
 
-target_temp_file = os.path.join(os.path.dirname(sys.argv[0])) + '/config/target_temp.txt'
+#target_temp_file = os.path.join(os.path.dirname(sys.argv[0])) + '/config/target_temp.txt'
+target_temp_file = config.MAIN_PY_FILE_PATH + config.SET_TEMP_FILE_PATH
 
 def is_number(s):
     try:
@@ -36,6 +37,6 @@ def set_set_temp(temp):
 
 #TODO - set so can use as cmd line or part of main daemon
 if __name__ == "__main__":
-    set_set_temp(sys.argv[1])
+    set_set_temp(sys.argv[2])
     print str(get_set_temp())
 #print 999999
