@@ -23,4 +23,4 @@ def set_relay_state(relay_state):
 
 
 if __name__ == "__main__":
-    set_relay_state(sys.argv[1])
+    set_relay_state(sys.argv[2])

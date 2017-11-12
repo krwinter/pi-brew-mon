@@ -24,6 +24,17 @@ elif (env == 'pi-cool'):
 	GPIO_PIN = 22
 	READ_TEMP_DIR = '/sys/devices/w1_bus_master1/28-00000520ca72'
 	CURRENT_TEMP_CACHE = '/opt/fermtemp/data/channel2/currentTemp.txt'
+# heater and cooler together - heat channel 1, cool channel 2
+elif (env == 'pi-heat-cooler'):
+	ENV = 'pi-mix'
+	# data - relay mode and target temp - are in channel 1
+	DATA_FOLDER = '/data/channel1'
+	TEMP_MODE = 'HEAT'
+	# controls channel 1 - heat
+	GPIO_PIN = 17
+	# reads channel 2 temp
+	READ_TEMP_DIR = '/sys/devices/w1_bus_master1/28-00000520ca72' 
+	CURRENT_TEMP_CACHE = '/opt/fermtemp/data/channel2/currentTemp.txt'
 elif (env == 'local'):
 	ENV = 'local'
 	DATA_FOLDER = '/data/local'
