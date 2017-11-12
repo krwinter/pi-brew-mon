@@ -23,8 +23,8 @@ elif (env == 'pi-cool'):
 	ENV = 'pi-cool'
 	DATA_FOLDER = '/data/channel2'
 	TEMP_MODE = 'COOL'
-	LOWER_TEMP_SLOP = -0.5
-	UPPER_TEMP_SLOP = 3.5
+	LOWER_TEMP_SLOP = -1
+	UPPER_TEMP_SLOP = 1.5
 	GPIO_PIN = 22
 	READ_TEMP_DIR = '/sys/devices/w1_bus_master1/28-00000520ca72'
 	CURRENT_TEMP_CACHE = '/opt/fermtemp/data/channel2/currentTemp.txt'
@@ -34,6 +34,8 @@ elif (env == 'pi-heat-cooler'):
 	# data - relay mode and target temp - are in channel 1
 	DATA_FOLDER = '/data/channel1'
 	TEMP_MODE = 'HEAT'
+	LOWER_TEMP_SLOP = -1
+	UPPER_TEMP_SLOP = 1.5
 	# controls channel 1 - heat
 	GPIO_PIN = 17
 	# reads channel 2 temp
