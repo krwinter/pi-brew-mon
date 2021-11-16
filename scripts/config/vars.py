@@ -10,6 +10,11 @@ else:
 
 
 #if (env == 'pi' or os.path.isdir('/sys/bus/w1/devices/')):
+
+# figure out for relative paths
+thisFilePath = os.path.abspath(__file__)
+thisDirectory = os.path.dirname(thisFilePath)
+
 if (env == 'pi' or env == 'pi-heat'):
 	ENV = 'pi'
 	DATA_FOLDER = '/data/channel1'
@@ -47,13 +52,29 @@ elif (env == 'local'):
 	TEMP_MODE = 'HEAT'
 	LOWER_TEMP_SLOP = 0.5
 	UPPER_TEMP_SLOP = 0.5
-	READ_TEMP_DIR = 'config/28-00000044ff99bb'
-	CURRENT_TEMP_CACHE = 'config/currentTemp.txt'
+	READ_TEMP_DIR = os.path.join(thisDirectory, '28-00000044ff99bb')
+	CURRENT_TEMP_CACHE = os.path.join(thisDirectory, 'currentTemp.txt')
+elif (env == 'local1'):
+	ENV = 'local1'
+	DATA_FOLDER = '/data/local'
+	TEMP_MODE = 'HEAT'
+	LOWER_TEMP_SLOP = 0.5
+	UPPER_TEMP_SLOP = 0.5
+	READ_TEMP_DIR = os.path.join(thisDirectory, '28-00000044ff99bb')
+	CURRENT_TEMP_CACHE = os.path.join(thisDirectory, 'currentTemp.txt')
+elif (env == 'local2'):
+	ENV = 'local2'
+	DATA_FOLDER = '/data/local'
+	TEMP_MODE = 'COOL'
+	LOWER_TEMP_SLOP = 0.5
+	UPPER_TEMP_SLOP = 0.5
+	READ_TEMP_DIR = os.path.join(thisDirectory, '28-00')
+	CURRENT_TEMP_CACHE = os.path.join(thisDirectory, 'currentTemp.txt')
 else:
 	ENV = 'node'
 	DATA_FOLDER = '/data/local'
 	TEMP_MODE = 'HEAT'
-	READ_TEMP_DIR = 'config/28-00000044ff99bb'
+	READ_TEMP_DIR = 'config/28-0000'
 	CURRENT_TEMP_CACHE = 'config/currentTemp.txt'
 
 
