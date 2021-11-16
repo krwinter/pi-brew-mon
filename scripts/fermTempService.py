@@ -82,7 +82,7 @@ def get_polling_config():
 
 def log_info(message):
     # just print for now
-    print message
+    print(message)
 
 def log_data(data):
     # just print for now

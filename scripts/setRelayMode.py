@@ -27,4 +27,4 @@ def set_relay_mode(mode):
 
 if __name__ == "__main__":
 	set_relay_mode(sys.argv[2])
-	print str(get_relay_mode())
+	print(str(get_relay_mode()))

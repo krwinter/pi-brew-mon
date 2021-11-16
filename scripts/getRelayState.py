@@ -20,4 +20,4 @@ def get_relay_state():
 	return relay_state
 
 if __name__ == "__main__":
-	print get_relay_state()
+	print(get_relay_state())

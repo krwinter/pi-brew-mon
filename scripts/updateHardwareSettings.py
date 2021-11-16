@@ -70,7 +70,7 @@ def set_relay_state_based_on_temps():
 def log_info(message):
     # just print for now
     if __name__ == "__main__":
-        print message
+        print(message)
 
 def log_data(data):
     # just print for now

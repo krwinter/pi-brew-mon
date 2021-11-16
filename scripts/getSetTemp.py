@@ -20,4 +20,4 @@ def get_set_temp():
     return read_temp
 
 if __name__ == "__main__":
-	print str(get_set_temp())
+	print(str(get_set_temp()))

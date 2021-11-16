@@ -19,7 +19,7 @@ def hardware_on():
 	    gpio_pin = 17
 	    GPIO.setmode(GPIO.BCM)
 	    GPIO.setup(gpio_pin, GPIO.OUT)
-	print "Hardware turned on"
+	print("Hardware turned on")
 
 
 def hardware_off():
@@ -38,8 +38,8 @@ def hardware_off():
 			#print shell_command
 			if shell_command and 'python' in shell_command[0] and len(shell_command) > 0 and 'run.py' in shell_command[1]:
 				pid = pinfo['pid']
-				os.system('kill %d' % pid
-				print "Killing PID {0}".format(pid)
+				os.system('kill %d' % pid)
+				print("Killing PID {0}".format(pid))
 				break
 				
 
@@ -47,14 +47,14 @@ def hardware_off():
 
 def set_hardware_state(hardware_state):
     if hardware_state == 0 or hardware_state == 1
-        print " --SET RELAY-- Turning hardware to state {0}".format(hardware_state)
+        print(" --SET RELAY-- Turning hardware to state {0}".format(hardware_state))
         if hardware_state == 1:
         	hardware_on()
         else:
         	hardware_off()
 
     else:
-        print "Invalid hardware_state, only 0 or 1 allowed"
+        print("Invalid hardware_state, only 0 or 1 allowed")
 
 
 if __name__ == "__main__":

@@ -20,4 +20,4 @@ def get_relay_mode():
 
 #TODO - set so can use as cmd line or part of main daemon
 if __name__ == "__main__":
-    print str(get_relay_mode())
+    print(str(get_relay_mode()))

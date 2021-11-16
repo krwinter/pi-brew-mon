@@ -25,7 +25,7 @@ def set_system_state(mode):
 
 def set_system_state_on():
 
-	print "Turning system on"
+	print("Turning system on")
 	if get_system_state() != 1:
 		if config.ENV == 'pi' or os.path.isdir('/sys/bus/w1/devices/'):
 			os.system('sudo service fermtemp start')
@@ -35,14 +35,14 @@ def set_system_state_on():
 
 		# do we want to make sure the service is running? and make sure it is?
 
-		print "System turned on"
+		print("System turned on")
 	else:
-		print "--System was already on"
+		print("--System was already on")
 
 
 
 def set_system_state_off():
-	print "Starting to turn system off..."
+	print()"Starting to turn system off..."
 
 	if get_system_state() == 1:
 		# for proc in psutil.process_iter():
@@ -62,9 +62,9 @@ def set_system_state_off():
 		# 			break
 		if config.ENV == 'pi' or os.path.isdir('/sys/bus/w1/devices/'):
 			os.system('sudo service fermtemp stop')
-			print "Killing Fermtemp Service"
+			print("Killing Fermtemp Service")
 	else:
-		print "Nothing to kill here"
+		print("Nothing to kill here")
 
 
 def execute_restart():

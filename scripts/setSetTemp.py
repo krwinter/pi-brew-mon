@@ -38,5 +38,5 @@ def set_set_temp(temp):
 #TODO - set so can use as cmd line or part of main daemon
 if __name__ == "__main__":
     set_set_temp(sys.argv[2])
-    print str(get_set_temp())
+    print(str(get_set_temp()))
 #print 999999

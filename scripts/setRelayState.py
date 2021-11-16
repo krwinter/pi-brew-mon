@@ -8,7 +8,7 @@ from getRelayMode import get_relay_mode
 
 def log_info(msg):
     if __name__ == "__main__":
-        print msg
+        print(msg)
 
 def set_relay_state(relay_state):
     if int(relay_state) == 0 or int(relay_state) == 1:

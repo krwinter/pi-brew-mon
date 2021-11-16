@@ -34,4 +34,4 @@ def get_current_temp():
 
 
 if __name__ == "__main__":
-    print str(get_current_temp())
+    print(str(get_current_temp()))
