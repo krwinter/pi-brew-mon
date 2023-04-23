@@ -1,0 +1,11 @@
+[Unit]
+Description=Fermtemp cool
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/ken/.virtualenvs/brewtemp/bin/python /opt/fermtemp-cool/fermTempService.py pi-heat
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

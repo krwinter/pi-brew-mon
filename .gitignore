@@ -3,6 +3,5 @@ web/node_modules/*
 web/lib/*
 npm-debug.log
 *.pyc
- .idea/*
  .idea/
  .idea

@@ -1,0 +1,12 @@
+[Unit]
+Description=Fermnode
+After=multi-user.target
+
+[Service]
+Type=simple
+Environment="NODE_ENV=pi"
+ExecStart=/home/ken/.nvm/versions/node/v7.2.1/bin/node /opt/fermnode/app/app.js
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -3,6 +3,7 @@ import sys
 import os
 
 # env is passed in on command line - 'pi' or None currently
+# UPDATE - pi-cool and pi-heat
 if len(sys.argv) > 1:
 	env = sys.argv[1]
 else:
